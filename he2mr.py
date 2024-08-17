@@ -72,13 +72,8 @@ f = open(filepath, "rb") # Opens and stores the .material file
 
 pointer = 0 # The pointer is to keep track of what bytes have been fully read/decoded/taken care of
 
-if f.read(1) != b"\x80": # This sequence of bytes is identical in every .material file, so it being missing would indicate corruption, or the file isn't .material
-    raise Exception("Material file is corrupted or broken")
-pointer += 3
-f.seek(2, 1)
-
-f.seek(13, 1) # Skips 13 bytes with unknown purposes
-pointer += 13
+f.seek(16, 1) # Skips 13 bytes with unknown purposes
+pointer += 16
 
 miragenodes = []
 while True: # Loops through sections of data until it reaches the end of the list of nodes
